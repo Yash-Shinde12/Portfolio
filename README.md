@@ -1,68 +1,96 @@
-# Yash Shinde — Developer Portfolio
+# 🏔️ Yash Shinde — Developer Portfolio
 
-> **Professional developer portfolio with a gamer personality.**  
-> Minimal · Dark · Elegant · Technical · Modern · Gamer-inspired
+A modern, minimal, editorial developer portfolio built with **React**, **TypeScript**, **Tailwind CSS v4**, and **Framer Motion**.
 
----
-
-## ✏️ How to Edit Your Portfolio
-
-All your personal data lives in one file:
-
-**`src/config.ts`** — Edit this file only. No need to touch HTML/CSS.
-
-### What you can change:
-| Key | What it does |
-|---|---|
-| `name` | Your full name |
-| `level` | Your **age** (displayed as `LVL 21`) |
-| `github` | Your GitHub URL |
-| `linkedin` | Your LinkedIn URL |
-| `email` | Your contact email |
-| `resume` | Path to your resume PDF (drop it in `/public/`) |
-| `skills` | Your tech categories and skills |
-| `projects` | Your project cards |
-| `education` | Your degree details |
-| `githubUsername` | For the contribution graph |
-| `githubStats` | Manual stats (repos, contributions, stars) |
-
-### Adding your Resume PDF
-1. Place your resume file at: `public/resume.pdf`
-2. The "Download Resume" button will work automatically.
+![Portfolio Theme](https://img.shields.io/badge/Theme-Paper%20%26%20Stone-d97706?style=for-the-badge)
+![Tech Stack](https://img.shields.io/badge/React%2019-Vite-3b82f6?style=for-the-badge)
+![Deployment](https://img.shields.io/badge/Hosted%20on-Render-16a34a?style=for-the-badge)
 
 ---
 
-## 🚀 Running Locally
+## ✨ Features
 
-```bash
-npm install
-npm run dev
-```
-
-Open: [http://localhost:5173](http://localhost:5173)
-
----
-
-## 🌐 Deploying to Vercel (Free, Recommended)
-
-1. Push this folder to a GitHub repo.
-2. Go to [vercel.com](https://vercel.com) and sign in with GitHub.
-3. Click **New Project** and import your repo.
-4. Click **Deploy**. Done in ~30 seconds!
-
-Your live URL: `yash-shinde.vercel.app` or similar.
-
----
-
-## 🎮 Easter Egg
-
-Press `↑ ↑ ↓ ↓ ← → ← →` on your keyboard to unlock an achievement 🏆
+- **🏔️ Paper & Stone Theme**: Architect's notebook aesthetic with warm off-white background (`#f5f3ef`), slate charcoal typography, and burnt-orange (`#d97706`) accents.
+- **🎯 Dynamic Notch Navbar**: Centered floating island header with active section scrollspy highlights and mobile responsive drawer.
+- **⚡ Auto-Typing Role Cursor**: Dynamic typing text in the Hero section rotating through developer roles.
+- **🖼️ Seamless Cutout Portrait**: Depth shadow, floating spring motion, and ambient warm radial halo behind portrait cutout.
+- **🌊 Spring Physics Scroll Reveals**: Staggered domino card entry and illuminated vertical education timeline.
+- **📩 Real Email Contact Form**: Integrated with **EmailJS** for instant message delivery directly to your Gmail inbox.
+- **🖱️ Custom SVG Mouse Pointer**: Sleek burnt-orange SVG arrow pointer that tilts and scales on hover over interactive elements.
+- **📏 Top Scroll Progress Bar**: Micro accent progress line fixed at the top indicating page scroll completion.
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **React** + **TypeScript** + **Vite**
-- **Tailwind CSS v4** (via `@tailwindcss/vite`)
-- **Framer Motion** (animations)
-- **Lucide React** (icons)
+- **Framework**: React 19 + Vite 8
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4 + Custom Design Tokens
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Email Service**: EmailJS (`@emailjs/browser`)
+
+---
+
+## 📁 Project Structure
+
+```
+portfolio/
+├── public/
+│   ├── imag3.png          # Portrait cutout image
+│   └── resume.pdf         # Downloadable resume PDF
+├── src/
+│   ├── components/
+│   │   ├── Navbar.tsx     # Dynamic Floating Notch Header
+│   │   ├── Hero.tsx       # Intro with Auto-Typing text
+│   │   ├── About.tsx      # About Me section
+│   │   ├── Skills.tsx     # Tech Stack chips
+│   │   ├── Projects.tsx   # Project cards grid
+│   │   ├── Education.tsx  # Timeline with light beam
+│   │   ├── Contact.tsx    # EmailJS contact form
+│   │   ├── Footer.tsx     # Footer
+│   │   ├── SpotlightCursor.tsx # Custom SVG Arrow Pointer
+│   │   └── ScrollProgress.tsx  # Top scroll line
+│   ├── config.ts          # ⭐️ ALL PORTFOLIO DATA & KEYS HERE
+│   ├── App.tsx
+│   └── index.css          # Core Design System & Tokens
+└── package.json
+```
+
+---
+
+## 🚀 Quick Start (Local Setup)
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Yash-Shinde12/Portfolio.git
+   cd Portfolio
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Start the local development server:**
+   ```bash
+   npm run dev
+   ```
+   Open `http://localhost:5173` in your browser.
+
+4. **Build for production:**
+   ```bash
+   npm run build
+   ```
+
+---
+
+## ✏️ Customizing Your Data
+
+All portfolio content is central in **`src/config.ts`**. You can update your projects, skills, social links, and EmailJS credentials directly inside `src/config.ts`.
+
+---
+
+## 📜 License
+
+Created with care by [Yash Shinde](https://github.com/Yash-Shinde12). Feel free to star ⭐️ this repo if you find it helpful!
