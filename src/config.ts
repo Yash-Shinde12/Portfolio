@@ -5,23 +5,37 @@
 export const CONFIG = {
   // ── PERSONAL ──────────────────────────────────────────────
   name: "Yash Shinde",
-  nameShort: "YASH.SHINDE",
   title: "Computer Science Student & Developer",
-  tagline: "I build software, explore new technologies, and occasionally spend too much time trying to beat the final boss.",
-  level: 21,             // ← Change this to your age
+  tagline:
+    "I build software, explore new technologies, and turn ideas into working products.",
+  portrait: "/imag3.png",
 
   location: "India",
-  role: "CS Student",
-  currently: "Learning & Building",
 
   // ── LINKS ─────────────────────────────────────────────────
   github: "https://github.com/yash-shinde",
   linkedin: "https://linkedin.com/in/yash-shinde",
-  email: "yash.shinde@example.com",
-  resume: "/resume.pdf",  // ← Drop resume.pdf into /public/
+  email: "yashshinde7441@gmail.com",
+  resume: "/resume.pdf", // ← Drop resume.pdf into /public/
+
+  // ── EMAILJS CREDENTIALS ───────────────────────────────────
+  emailjs: {
+    serviceId: "service_0l6m5a7",
+    templateId: "template_bquua4b", // ← Paste your EmailJS Template ID here (e.g. template_xxxx)
+    publicKey: "vq4nijLlqvlv6OWIT",  // ← Paste your EmailJS Public Key here (from Account settings)
+  },
+
+  // ── STATS (hero row) ──────────────────────────────────────
+  stats: [
+    { value: "3+", label: "Projects" },
+    { value: "12+", label: "Repos" },
+    { value: "340+", label: "Commits" },
+    { value: "5+", label: "Tech Skills" },
+  ],
 
   // ── ABOUT ─────────────────────────────────────────────────
-  about: "I'm a Computer Science student interested in software development, problem solving, AI/ML, and building things that actually work. I enjoy learning by creating projects and experimenting with different technologies.",
+  about:
+    "I'm a Computer Science student interested in software development, problem solving, AI/ML, and building things that actually work. I enjoy learning by creating projects and experimenting with different technologies.",
 
   // ── SKILLS ────────────────────────────────────────────────
   skills: {
@@ -42,7 +56,7 @@ export const CONFIG = {
       tech: ["Python", "Scikit-learn", "XGBoost", "SMOTE", "Pandas"],
       github: "https://github.com/yash-shinde",
       live: "",
-      status: "COMPLETED",
+      status: "Completed",
     },
     {
       id: "02",
@@ -52,7 +66,7 @@ export const CONFIG = {
       tech: ["Node.js", "Express.js", "MySQL", "HTML", "CSS"],
       github: "https://github.com/yash-shinde",
       live: "",
-      status: "DEPLOYED",
+      status: "Deployed",
     },
     {
       id: "03",
@@ -62,17 +76,17 @@ export const CONFIG = {
       tech: ["Python", "NLTK", "Scikit-learn", "Flask"],
       github: "https://github.com/yash-shinde",
       live: "",
-      status: "COMPLETED",
+      status: "Completed",
     },
     {
       id: "04",
       title: "CLI Task Manager",
       description:
-        "Command-line productivity tool with local JSON persistence, tags, priorities, and due-date reminders. Built to actually replace sticky notes.",
+        "Command-line productivity tool with local JSON persistence, tags, priorities, and due-date reminders.",
       tech: ["Python", "Click", "JSON", "Linux"],
       github: "https://github.com/yash-shinde",
       live: "",
-      status: "IN PROGRESS",
+      status: "In Progress",
     },
   ],
 
@@ -82,15 +96,14 @@ export const CONFIG = {
       degree: "Bachelor of Engineering — Computer Science",
       institution: "Your College / University",
       period: "2023 – Present",
-      areas: ["Data Structures & Algorithms", "DBMS", "Operating Systems", "Computer Networks", "Machine Learning"],
+      description:
+        "Core coursework in Data Structures, Algorithms, DBMS, Operating Systems, Computer Networks, and Machine Learning.",
+    },
+    {
+      degree: "Higher Secondary Certificate (HSC)",
+      institution: "Your Junior College",
+      period: "2021 – 2023",
+      description: "Science stream with a focus on Mathematics and Computer Science.",
     },
   ],
-
-  // ── GITHUB STATS ──────────────────────────────────────────
-  githubUsername: "yash-shinde",
-  githubStats: {
-    repos: 12,
-    contributions: 340,
-    stars: 18,
-  },
 } as const;

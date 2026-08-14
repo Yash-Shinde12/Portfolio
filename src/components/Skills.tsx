@@ -1,100 +1,88 @@
 import { motion } from "framer-motion";
 import { CONFIG } from "../config";
-import { useInView } from "../hooks/useInView";
 
-const EQUIPPED_LABELS = ["EQUIPPED", "UNLOCKED", "INSTALLED", "ACTIVE", "MASTERED"];
-
-function getLabel(tech: string): string {
-  // Deterministically pick a label based on tech name
-  const idx = tech.charCodeAt(0) % EQUIPPED_LABELS.length;
-  return EQUIPPED_LABELS[idx];
-}
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i = 0) => ({
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
     opacity: 1,
+    transition: {
+      staggerChildren: 0.04,
+      delayChildren: 0.02,
+    },
+  },
+};
+
+const chipSpring = {
+  hidden: { opacity: 0, scale: 0.8, y: 14 },
+  visible: {
+    opacity: 1,
+    scale: 1,
     y: 0,
-    transition: { duration: 0.4, delay: i * 0.05 },
-  }),
+    transition: {
+      type: "spring",
+      stiffness: 140,
+      damping: 12,
+    },
+  },
 };
 
 export default function Skills() {
-  const [ref, inView] = useInView();
-
   return (
-    <section
-      id="skills"
-      style={{
-        background: "var(--color-bg-secondary)",
-        borderTop: "1px solid rgba(139,92,246,0.08)",
-        borderBottom: "1px solid rgba(139,92,246,0.08)",
-      }}
-    >
-      <div
-        className="section-padding"
-        ref={ref as React.RefObject<HTMLDivElement>}
-      >
+    <section id="skills" style={{ position: "relative", zIndex: 10 }}>
+      <div className="section-wrap">
         <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          custom={0}
+          initial={{ opacity: 0, y: 24, scale: 0.96 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ type: "spring", stiffness: 100, damping: 18 }}
           style={{ marginBottom: "2.5rem" }}
         >
-          <p className="section-label">TECH STACK</p>
-          <h2 className="section-title">Skills & Tools</h2>
+          <p className="eyebrow">Tech Stack</p>
+          <h2 className="section-title">
+            Skills &amp; <span style={{ color: "var(--accent)" }}>Tools</span>
+          </h2>
         </motion.div>
 
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "2rem",
-          }}
-        >
-          {Object.entries(CONFIG.skills).map(([category, techs], catIdx) => (
+        <div style={{ display: "flex", flexDirection: "column", gap: "1.75rem" }}>
+          {Object.entries(CONFIG.skills).map(([cat, techs]) => (
             <motion.div
-              key={category}
-              variants={fadeUp}
-              initial="hidden"
-              animate={inView ? "visible" : "hidden"}
-              custom={catIdx + 1}
+              key={cat}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.4 }}
             >
-              {/* Category label */}
               <p
                 className="mono"
                 style={{
-                  fontSize: "0.65rem",
-                  fontWeight: 600,
-                  letterSpacing: "0.18em",
-                  color: "var(--color-text-muted)",
+                  fontSize: "0.58rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.2em",
+                  color: "var(--text-3)",
                   textTransform: "uppercase",
-                  marginBottom: "0.75rem",
+                  marginBottom: "0.65rem",
                 }}
               >
-                — {category}
+                / {cat}
               </p>
-
-              {/* Tag row */}
-              <div
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: "0.5rem",
-                }}
+              <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                style={{ display: "flex", flexWrap: "wrap", gap: "0.45rem" }}
               >
-                {(techs as readonly string[]).map((tech) => (
-                  <div key={tech} className="skill-tag">
-                    {tech}
-                    <span className="tag-tooltip">{getLabel(tech)}</span>
-                  </div>
+                {(techs as readonly string[]).map((t) => (
+                  <motion.span key={t} variants={chipSpring} className="chip">
+                    {t}
+                  </motion.span>
                 ))}
-              </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>
       </div>
+      <div className="divider" />
     </section>
   );
 }

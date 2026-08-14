@@ -1,195 +1,200 @@
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
-import { GithubIcon } from "./GithubIcon";
 import { CONFIG } from "../config";
-import { useInView } from "../hooks/useInView";
+import { GithubIcon } from "./GithubIcon";
 
-const STATUS_COLOR: Record<string, string> = {
-  COMPLETED: "#22c55e",
-  DEPLOYED: "#06b6d4",
-  "IN PROGRESS": "#f59e0b",
+const STATUS: Record<string, { color: string; bg: string; border: string }> = {
+  Completed: { color: "#16a34a", bg: "rgba(22,163,74,0.06)", border: "rgba(22,163,74,0.18)" },
+  Deployed: { color: "#0891b2", bg: "rgba(8,145,178,0.06)", border: "rgba(8,145,178,0.18)" },
+  "In Progress": { color: "#d97706", bg: "rgba(217,119,6,0.06)", border: "rgba(217,119,6,0.18)" },
 };
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i = 0) => ({
+// Smooth Spring Physics Variant for Staggered Cards
+const cardContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+const cardSpringVariants = {
+  hidden: { opacity: 0, y: 40, scale: 0.94 },
+  visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, delay: i * 0.1 },
-  }),
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 90,
+      damping: 16,
+      mass: 0.8,
+    },
+  },
 };
 
 export default function Projects() {
-  const [ref, inView] = useInView();
-
   return (
-    <section id="projects">
-      <div
-        className="section-padding"
-        ref={ref as React.RefObject<HTMLDivElement>}
-      >
-        {/* Header */}
+    <section id="projects" style={{ position: "relative", zIndex: 10 }}>
+      <div className="section-wrap">
         <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          custom={0}
-          style={{ marginBottom: "2.5rem" }}
+          initial={{ opacity: 0, y: 24, scale: 0.96 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ type: "spring", stiffness: 100, damping: 18 }}
+          style={{ marginBottom: "2.75rem" }}
         >
-          <p className="section-label">PROJECTS</p>
-          <h2 className="section-title" style={{ marginBottom: "0.5rem" }}>
-            Things I've Built
+          <p className="eyebrow">Projects</p>
+          <h2 className="section-title">
+            Things I've <span style={{ color: "var(--accent)" }}>Built</span>
           </h2>
-          <p
-            className="mono"
-            style={{
-              fontSize: "0.75rem",
-              color: "var(--color-text-muted)",
-              fontStyle: "italic",
-            }}
-          >
-            Things I've built, broken, fixed, and learned from.
-          </p>
         </motion.div>
 
-        {/* Project grid */}
-        <div
+        {/* Staggered Spring Cards Grid */}
+        <motion.div
+          variants={cardContainerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 480px), 1fr))",
-            gap: "1.5rem",
+            gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 440px), 1fr))",
+            gap: "1.2rem",
           }}
         >
-          {CONFIG.projects.map((project, i) => (
-            <motion.div
-              key={project.id}
-              variants={fadeUp}
-              initial="hidden"
-              animate={inView ? "visible" : "hidden"}
-              custom={i + 1}
-            >
-              <div className="project-card">
-                {/* Quest label row */}
+          {CONFIG.projects.map((p) => {
+            const st = STATUS[p.status] ?? STATUS.Completed;
+            return (
+              <motion.div key={p.id} variants={cardSpringVariants}>
                 <div
+                  className="card"
                   style={{
+                    padding: "1.8rem 1.9rem",
                     display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    marginBottom: "1rem",
+                    flexDirection: "column",
+                    height: "100%",
                   }}
                 >
-                  <span
-                    className="mono"
+                  <div
                     style={{
-                      fontSize: "0.6rem",
-                      fontWeight: 600,
-                      letterSpacing: "0.15em",
-                      color: "var(--color-text-muted)",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginBottom: "1rem",
                     }}
                   >
-                    QUEST #{project.id}
-                  </span>
-                  <span
-                    className="mono"
-                    style={{
-                      fontSize: "0.6rem",
-                      fontWeight: 600,
-                      letterSpacing: "0.12em",
-                      color: STATUS_COLOR[project.status] ?? "var(--color-accent)",
-                      background: `${STATUS_COLOR[project.status] ?? "var(--color-accent)"}18`,
-                      border: `1px solid ${STATUS_COLOR[project.status] ?? "var(--color-accent)"}40`,
-                      borderRadius: 4,
-                      padding: "2px 8px",
-                    }}
-                  >
-                    {project.status}
-                  </span>
-                </div>
-
-                {/* Title */}
-                <h3
-                  style={{
-                    fontSize: "1.05rem",
-                    fontWeight: 600,
-                    color: "var(--color-text-primary)",
-                    lineHeight: 1.3,
-                    marginBottom: "0.75rem",
-                  }}
-                >
-                  {project.title}
-                </h3>
-
-                {/* Description */}
-                <p
-                  style={{
-                    fontSize: "0.875rem",
-                    color: "var(--color-text-secondary)",
-                    lineHeight: 1.7,
-                    marginBottom: "1.25rem",
-                    flexGrow: 1,
-                  }}
-                >
-                  {project.description}
-                </p>
-
-                {/* Tech tags */}
-                <div
-                  style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: "0.4rem",
-                    marginBottom: "1.25rem",
-                  }}
-                >
-                  {project.tech.map((t) => (
                     <span
-                      key={t}
+                      className="mono"
                       style={{
-                        fontSize: "0.72rem",
-                        fontWeight: 500,
-                        fontFamily: "var(--font-mono)",
-                        color: "var(--color-accent)",
-                        background: "rgba(139,92,246,0.08)",
-                        border: "1px solid rgba(139,92,246,0.2)",
-                        borderRadius: 4,
-                        padding: "2px 8px",
+                        fontSize: "0.58rem",
+                        fontWeight: 700,
+                        letterSpacing: "0.14em",
+                        color: "var(--text-3)",
                       }}
                     >
-                      {t}
+                      #{p.id}
                     </span>
-                  ))}
-                </div>
+                    <span
+                      className="status-pill"
+                      style={{
+                        color: st.color,
+                        background: st.bg,
+                        border: `1px solid ${st.border}`,
+                      }}
+                    >
+                      <span
+                        style={{
+                          width: 5,
+                          height: 5,
+                          borderRadius: "50%",
+                          background: st.color,
+                          display: "inline-block",
+                        }}
+                      />
+                      {p.status}
+                    </span>
+                  </div>
 
-                {/* Buttons */}
-                <div style={{ display: "flex", gap: "0.6rem", flexWrap: "wrap" }}>
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-ghost"
-                    id={`project-github-${project.id}`}
+                  <h3
+                    style={{
+                      fontSize: "1.05rem",
+                      fontWeight: 650,
+                      color: "var(--text-1)",
+                      lineHeight: 1.3,
+                      marginBottom: "0.6rem",
+                    }}
                   >
-                    <GithubIcon size={14} />
-                    GitHub
-                  </a>
-                  {project.live && (
+                    {p.title}
+                  </h3>
+                  <p
+                    style={{
+                      fontSize: "0.85rem",
+                      color: "var(--text-2)",
+                      lineHeight: 1.72,
+                      marginBottom: "1.2rem",
+                      flex: 1,
+                    }}
+                  >
+                    {p.description}
+                  </p>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      gap: "0.35rem",
+                      marginBottom: "1.3rem",
+                    }}
+                  >
+                    {p.tech.map((t) => (
+                      <span
+                        key={t}
+                        className="mono"
+                        style={{
+                          fontSize: "0.64rem",
+                          fontWeight: 600,
+                          color: "var(--accent)",
+                          background: "var(--accent-dim)",
+                          border: "1px solid rgba(217,119,6,0.12)",
+                          borderRadius: 4,
+                          padding: "2px 8px",
+                        }}
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div style={{ display: "flex", gap: "0.5rem" }}>
                     <a
-                      href={project.live}
+                      href={p.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-ghost"
-                      id={`project-live-${project.id}`}
+                      className="btn-ghost-sm"
                     >
-                      <ExternalLink size={14} />
-                      Live Demo
+                      <GithubIcon size={12} /> GitHub
                     </a>
-                  )}
+                    {p.live && (
+                      <a
+                        href={p.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-ghost-sm"
+                      >
+                        <ExternalLink size={12} /> Live
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+              </motion.div>
+            );
+          })}
+        </motion.div>
       </div>
+      <div className="divider" />
     </section>
   );
 }

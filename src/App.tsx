@@ -5,14 +5,16 @@ import About from "./components/About";
 import Skills from "./components/Skills";
 import Projects from "./components/Projects";
 import Education from "./components/Education";
-import Activity from "./components/Activity";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
-import KonamiAchievement from "./components/KonamiAchievement";
+import SpotlightCursor from "./components/SpotlightCursor";
+import ScrollProgress from "./components/ScrollProgress";
 
 function App() {
   return (
     <>
+      <ScrollProgress />
+      <SpotlightCursor />
       <Navbar />
       <main>
         <Hero />
@@ -20,11 +22,9 @@ function App() {
         <Skills />
         <Projects />
         <Education />
-        <Activity />
         <Contact />
       </main>
       <Footer />
-      <KonamiAchievement />
     </>
   );
 }

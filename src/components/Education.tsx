@@ -1,171 +1,183 @@
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { CONFIG } from "../config";
-import { useInView } from "../hooks/useInView";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (i = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, delay: i * 0.1 },
-  }),
-};
 
 export default function Education() {
-  const [ref, inView] = useInView();
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const [beamHeight, setBeamHeight] = useState(0);
+
+  useEffect(() => {
+    const el = timelineRef.current;
+    if (!el) return;
+
+    const onScroll = () => {
+      const rect = el.getBoundingClientRect();
+      const viewTop = window.innerHeight * 0.6; // beam "reaches" 60% down the viewport
+      const totalH = rect.height;
+
+      // How far the top of the timeline has scrolled past the trigger point
+      const progress = Math.min(
+        Math.max((viewTop - rect.top) / totalH, 0),
+        1
+      );
+      setBeamHeight(progress * totalH);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll(); // initial check
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <section
-      id="education"
-      style={{
-        background: "var(--color-bg-secondary)",
-        borderTop: "1px solid rgba(139,92,246,0.08)",
-      }}
-    >
-      <div
-        className="section-padding"
-        ref={ref as React.RefObject<HTMLDivElement>}
-      >
+    <section id="education" style={{ position: "relative", zIndex: 10 }}>
+      <div className="section-wrap">
         <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          custom={0}
+          initial={{ opacity: 0, y: 28, scale: 0.96 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ type: "spring", stiffness: 100, damping: 18 }}
           style={{ marginBottom: "2.5rem" }}
         >
-          <p className="section-label">EDUCATION</p>
-          <h2 className="section-title">Academic Journey</h2>
+          <p className="eyebrow">Education</p>
+          <h2 className="section-title">
+            My <span style={{ color: "var(--accent)" }}>Journey</span>
+          </h2>
         </motion.div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+        {/* Timeline */}
+        <div className="timeline" ref={timelineRef} style={{ position: "relative", paddingLeft: "2.5rem" }}>
+          {/* Static base line */}
+          <div
+            style={{
+              position: "absolute",
+              left: 6,
+              top: 0,
+              bottom: 0,
+              width: 2,
+              background: "rgba(28, 25, 23, 0.08)",
+              borderRadius: 99,
+            }}
+          />
+
+          {/* Animated beam that fills on scroll */}
+          <div
+            className="beam-line"
+            style={{
+              position: "absolute",
+              left: 6,
+              top: 0,
+              width: 2,
+              height: beamHeight,
+              background:
+                "linear-gradient(to bottom, var(--accent), rgba(217,119,6,0.15))",
+              borderRadius: 99,
+              transition: "height 0.1s linear",
+              boxShadow: "0 0 8px rgba(217,119,6,0.3)",
+              zIndex: 1,
+            }}
+          />
+
+          {/* Education entries */}
           {CONFIG.education.map((edu, i) => (
             <motion.div
               key={i}
-              variants={fadeUp}
-              initial="hidden"
-              animate={inView ? "visible" : "hidden"}
-              custom={i + 1}
+              initial={{ opacity: 0, x: -30, scale: 0.95 }}
+              whileInView={{ opacity: 1, x: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{
+                type: "spring",
+                stiffness: 90,
+                damping: 16,
+                delay: i * 0.12,
+              }}
+              style={{
+                position: "relative",
+                paddingBottom: i < CONFIG.education.length - 1 ? "3rem" : 0,
+              }}
             >
+              {/* Dot */}
               <div
                 style={{
-                  display: "flex",
-                  gap: "1.5rem",
-                  position: "relative",
+                  position: "absolute",
+                  left: "-2.5rem",
+                  top: 4,
+                  width: 14,
+                  height: 14,
+                  borderRadius: "50%",
+                  border: "3px solid var(--accent)",
+                  background: "var(--bg)",
+                  boxShadow: "0 0 0 4px rgba(217,119,6,0.1)",
+                  zIndex: 2,
                 }}
+              />
+
+              {/* Content card */}
+              <div
+                className="card"
+                style={{ padding: "1.4rem 1.6rem" }}
               >
-                {/* Left: checkpoint */}
                 <div
                   style={{
                     display: "flex",
-                    flexDirection: "column",
+                    justifyContent: "space-between",
                     alignItems: "center",
-                    gap: 6,
-                    paddingTop: 4,
+                    marginBottom: "0.6rem",
+                    flexWrap: "wrap",
+                    gap: "0.5rem",
                   }}
                 >
-                  {/* Checkpoint marker */}
-                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
-                    <span
-                      className="mono"
-                      style={{
-                        fontSize: "0.5rem",
-                        fontWeight: 700,
-                        letterSpacing: "0.12em",
-                        color: "var(--color-accent)",
-                        writingMode: "vertical-rl",
-                        transform: "rotate(180deg)",
-                        opacity: 0.7,
-                        display: "none",
-                      }}
-                    >
-                      CHECKPOINT
-                    </span>
-                    <div className="checkpoint-dot" />
-                  </div>
-                  {/* Vertical line */}
-                  <div
-                    style={{
-                      width: 1,
-                      flex: 1,
-                      minHeight: 40,
-                      background: "linear-gradient(to bottom, rgba(139,92,246,0.4), transparent)",
-                    }}
-                  />
-                </div>
-
-                {/* Right: content */}
-                <div style={{ flex: 1, paddingBottom: "1rem" }}>
-                  {/* CHECKPOINT label above */}
-                  <span
-                    className="mono"
-                    style={{
-                      fontSize: "0.58rem",
-                      fontWeight: 700,
-                      letterSpacing: "0.18em",
-                      color: "var(--color-accent)",
-                      marginBottom: "0.5rem",
-                      display: "block",
-                      opacity: 0.8,
-                    }}
-                  >
-                    ▸ CHECKPOINT
-                  </span>
-
                   <h3
                     style={{
-                      fontSize: "1.1rem",
-                      fontWeight: 600,
-                      color: "var(--color-text-primary)",
-                      marginBottom: "0.25rem",
+                      fontSize: "1rem",
+                      fontWeight: 650,
+                      color: "var(--text-1)",
                     }}
                   >
                     {edu.degree}
                   </h3>
-                  <p
-                    style={{
-                      fontSize: "0.875rem",
-                      color: "var(--color-text-secondary)",
-                      marginBottom: "0.25rem",
-                    }}
-                  >
-                    {edu.institution}
-                  </p>
-                  <p
+                  <span
                     className="mono"
                     style={{
-                      fontSize: "0.72rem",
-                      color: "var(--color-text-muted)",
-                      marginBottom: "1rem",
+                      fontSize: "0.6rem",
+                      fontWeight: 600,
+                      color: "var(--accent)",
+                      letterSpacing: "0.08em",
+                      background: "var(--accent-dim)",
+                      padding: "3px 10px",
+                      borderRadius: 4,
+                      border: "1px solid rgba(217,119,6,0.12)",
                     }}
                   >
                     {edu.period}
-                  </p>
-
-                  {/* Core subjects */}
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
-                    {edu.areas.map((area) => (
-                      <span
-                        key={area}
-                        style={{
-                          fontSize: "0.72rem",
-                          fontWeight: 500,
-                          color: "var(--color-text-muted)",
-                          background: "rgba(139,92,246,0.06)",
-                          border: "1px solid rgba(139,92,246,0.12)",
-                          borderRadius: 4,
-                          padding: "2px 8px",
-                        }}
-                      >
-                        {area}
-                      </span>
-                    ))}
-                  </div>
+                  </span>
                 </div>
+
+                <p
+                  style={{
+                    fontSize: "0.82rem",
+                    fontWeight: 500,
+                    color: "var(--text-2)",
+                    marginBottom: "0.4rem",
+                  }}
+                >
+                  {edu.institution}
+                </p>
+
+                <p
+                  style={{
+                    fontSize: "0.82rem",
+                    color: "var(--text-3)",
+                    lineHeight: 1.65,
+                  }}
+                >
+                  {edu.description}
+                </p>
               </div>
             </motion.div>
           ))}
         </div>
       </div>
+      <div className="divider" />
     </section>
   );
 }
