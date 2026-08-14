@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Download } from "lucide-react";
 import { CONFIG } from "../config";
 
@@ -16,31 +17,53 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
+    // 1. Smooth Scrolled state toggle
     const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
-
-      // ScrollSpy active section detection
-      const sections = ["hero", "about", "skills", "projects", "education", "contact"];
-      const scrollPosition = window.scrollY + 200;
-
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = document.getElementById(sections[i]);
-        if (section && section.offsetTop <= scrollPosition) {
-          setActiveSection(sections[i]);
-          break;
-        }
-      }
+      setScrolled(window.scrollY > 30);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    handleScroll();
+
+    // 2. High-performance IntersectionObserver for butter-smooth active section tracking
+    const sections = ["hero", "about", "skills", "projects", "education", "contact"];
+    const observerCallback: IntersectionObserverCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observerOptions: IntersectionObserverInit = {
+      root: null,
+      rootMargin: "-20% 0px -60% 0px", // Trigger when section is in top-middle of screen
+      threshold: 0,
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
+    };
   }, []);
 
   return (
     <>
       {/* Floating Dynamic Notch Navbar */}
       <header className="notch-navbar-wrapper">
-        <nav className={`notch-navbar ${scrolled ? "is-compact" : ""}`}>
+        <motion.nav
+          initial={{ y: -30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 120, damping: 20 }}
+          className={`notch-navbar ${scrolled ? "is-compact" : ""}`}
+        >
           {/* Logo / Brand Notch Badge */}
           <a href="#hero" className="notch-logo">
             <span className="notch-logo-accent">YS</span>
@@ -48,10 +71,11 @@ export default function Navbar() {
             <span className="notch-logo-text">Yash Shinde</span>
           </a>
 
-          {/* Desktop Navigation links pill */}
+          {/* Desktop Navigation links with sliding spring pill */}
           <div className="nav-desktop notch-links">
             {NAV_LINKS.map((link) => {
-              const isActive = activeSection === link.href.substring(1);
+              const targetId = link.href.substring(1);
+              const isActive = activeSection === targetId;
               return (
                 <a
                   key={link.href}
@@ -59,7 +83,17 @@ export default function Navbar() {
                   className={`notch-nav-link ${isActive ? "active" : ""}`}
                 >
                   {link.label}
-                  {isActive && <span className="notch-active-pill" />}
+                  {isActive && (
+                    <motion.span
+                      layoutId="activePill"
+                      className="notch-active-pill"
+                      transition={{
+                        type: "spring",
+                        stiffness: 380,
+                        damping: 32,
+                      }}
+                    />
+                  )}
                 </a>
               );
             })}
@@ -88,37 +122,45 @@ export default function Navbar() {
               <span className={`hamburger-bar ${mobileOpen ? "open-2" : ""}`} />
             </button>
           </div>
-        </nav>
+        </motion.nav>
       </header>
 
       {/* Mobile Drawer */}
-      {mobileOpen && (
-        <div className="notch-mobile-menu">
-          <div className="notch-mobile-content">
-            {NAV_LINKS.map((l) => (
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.96 }}
+            transition={{ duration: 0.2 }}
+            className="notch-mobile-menu"
+          >
+            <div className="notch-mobile-content">
+              {NAV_LINKS.map((l) => (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setMobileOpen(false)}
+                  className={`notch-mobile-link ${
+                    activeSection === l.href.substring(1) ? "active" : ""
+                  }`}
+                >
+                  {l.label}
+                </a>
+              ))}
               <a
-                key={l.href}
-                href={l.href}
+                href={CONFIG.resume}
+                download
                 onClick={() => setMobileOpen(false)}
-                className={`notch-mobile-link ${
-                  activeSection === l.href.substring(1) ? "active" : ""
-                }`}
+                className="btn-primary"
+                style={{ marginTop: "1rem", width: "100%", justifyContent: "center" }}
               >
-                {l.label}
+                <Download size={15} /> Download Resume
               </a>
-            ))}
-            <a
-              href={CONFIG.resume}
-              download
-              onClick={() => setMobileOpen(false)}
-              className="btn-primary"
-              style={{ marginTop: "1rem", width: "100%", justifyContent: "center" }}
-            >
-              <Download size={15} /> Download Resume
-            </a>
-          </div>
-        </div>
-      )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
