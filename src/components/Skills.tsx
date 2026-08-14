@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { CONFIG } from "../config";
+import StaggerText from "./StaggerText";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -31,16 +32,14 @@ export default function Skills() {
     <section id="skills" style={{ position: "relative", zIndex: 10 }}>
       <div className="section-wrap">
         <motion.div
-          initial={{ opacity: 0, y: 24, scale: 0.96 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ type: "spring", stiffness: 100, damping: 18 }}
+          transition={{ duration: 0.4 }}
           style={{ marginBottom: "2.5rem" }}
         >
           <p className="eyebrow">Tech Stack</p>
-          <h2 className="section-title">
-            Skills &amp; <span style={{ color: "var(--accent)" }}>Tools</span>
-          </h2>
+          <StaggerText text="Skills & Tools" accentWord="Tools" />
         </motion.div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: "1.75rem" }}>

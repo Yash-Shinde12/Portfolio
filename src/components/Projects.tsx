@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import { CONFIG } from "../config";
 import { GithubIcon } from "./GithubIcon";
+import StaggerText from "./StaggerText";
 
 const STATUS: Record<string, { color: string; bg: string; border: string }> = {
   Completed: { color: "#16a34a", bg: "rgba(22,163,74,0.06)", border: "rgba(22,163,74,0.18)" },
@@ -41,16 +42,14 @@ export default function Projects() {
     <section id="projects" style={{ position: "relative", zIndex: 10 }}>
       <div className="section-wrap">
         <motion.div
-          initial={{ opacity: 0, y: 24, scale: 0.96 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ type: "spring", stiffness: 100, damping: 18 }}
+          transition={{ duration: 0.4 }}
           style={{ marginBottom: "2.75rem" }}
         >
           <p className="eyebrow">Projects</p>
-          <h2 className="section-title">
-            Things I've <span style={{ color: "var(--accent)" }}>Built</span>
-          </h2>
+          <StaggerText text="Things I've Built" accentWord="Built" />
         </motion.div>
 
         {/* Staggered Spring Cards Grid */}

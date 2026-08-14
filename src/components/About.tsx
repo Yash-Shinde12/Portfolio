@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { CONFIG } from "../config";
+import StaggerText from "./StaggerText";
 
 export default function About() {
   return (
@@ -7,22 +8,20 @@ export default function About() {
       <div className="divider" />
       <div className="section-wrap">
         <motion.div
-          initial={{ opacity: 0, y: 28, scale: 0.96 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ type: "spring", stiffness: 100, damping: 18 }}
+          transition={{ duration: 0.4 }}
         >
           <p className="eyebrow">About</p>
-          <h2 className="section-title" style={{ marginBottom: "1.5rem" }}>
-            A bit about <span style={{ color: "var(--accent)" }}>me</span>
-          </h2>
+          <StaggerText text="A bit about me" accentWord="me" style={{ marginBottom: "1.5rem" }} />
         </motion.div>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ type: "spring", stiffness: 90, damping: 16, delay: 0.1 }}
+          transition={{ type: "spring", stiffness: 90, damping: 16, delay: 0.15 }}
           style={{
             fontSize: "0.98rem",
             color: "var(--text-2)",

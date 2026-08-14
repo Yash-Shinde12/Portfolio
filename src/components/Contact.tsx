@@ -4,6 +4,7 @@ import { Mail, Send, CheckCircle2, MapPin, AlertCircle } from "lucide-react";
 import emailjs from "@emailjs/browser";
 import { CONFIG } from "../config";
 import { GithubIcon, LinkedinIcon } from "./GithubIcon";
+import StaggerText from "./StaggerText";
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -71,9 +72,7 @@ export default function Contact() {
           style={{ marginBottom: "2.5rem" }}
         >
           <p className="eyebrow">Contact</p>
-          <h2 className="section-title">
-            Let's Work <span style={{ color: "var(--accent)" }}>Together</span>
-          </h2>
+          <StaggerText text="Let's Work Together" accentWord="Together" />
         </motion.div>
 
         {/* Side-by-Side Layout */}

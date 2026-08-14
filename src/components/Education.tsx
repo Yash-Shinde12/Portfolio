@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { CONFIG } from "../config";
+import StaggerText from "./StaggerText";
 
 export default function Education() {
   const timelineRef = useRef<HTMLDivElement>(null);
@@ -32,16 +33,14 @@ export default function Education() {
     <section id="education" style={{ position: "relative", zIndex: 10 }}>
       <div className="section-wrap">
         <motion.div
-          initial={{ opacity: 0, y: 28, scale: 0.96 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ type: "spring", stiffness: 100, damping: 18 }}
+          transition={{ duration: 0.4 }}
           style={{ marginBottom: "2.5rem" }}
         >
           <p className="eyebrow">Education</p>
-          <h2 className="section-title">
-            My <span style={{ color: "var(--accent)" }}>Journey</span>
-          </h2>
+          <StaggerText text="My Journey" accentWord="Journey" />
         </motion.div>
 
         {/* Timeline */}
