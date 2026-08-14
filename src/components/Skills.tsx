@@ -19,7 +19,7 @@ const chipSpring = {
     scale: 1,
     y: 0,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 140,
       damping: 12,
     },

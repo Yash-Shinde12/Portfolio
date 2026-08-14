@@ -19,7 +19,7 @@ export default function Hero() {
     const typingSpeed = isDeleting ? 40 : 80;
     const pauseTime = isDeleting ? 300 : 2000;
 
-    let timer: NodeJS.Timeout;
+    let timer: ReturnType<typeof setTimeout>;
 
     if (!isDeleting && displayedText === currentRole) {
       // Pause at full word before deleting

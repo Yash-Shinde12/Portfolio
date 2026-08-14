@@ -9,7 +9,7 @@ const KONAMI = [
 ];
 
 export default function KonamiAchievement() {
-  const [sequence, setSequence] = useState<string[]>([]);
+  const [_sequence, setSequence] = useState<string[]>([]);
   const [unlocked, setUnlocked] = useState(false);
 
   useEffect(() => {

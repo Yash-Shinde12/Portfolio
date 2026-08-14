@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Download, Sparkles } from "lucide-react";
+import { Download } from "lucide-react";
 import { CONFIG } from "../config";
 
 const NAV_LINKS = [

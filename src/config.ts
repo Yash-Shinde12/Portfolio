@@ -25,6 +25,14 @@ export const CONFIG = {
     publicKey: "vq4nijLlqvlv6OWIT",  // ← Paste your EmailJS Public Key here (from Account settings)
   },
 
+  // ── GITHUB STATS ──────────────────────────────────────────
+  githubUsername: "yash-shinde",
+  githubStats: {
+    repos: 12,
+    contributions: 340,
+    stars: 18,
+  },
+
   // ── STATS (hero row) ──────────────────────────────────────
   stats: [
     { value: "3+", label: "Projects" },
