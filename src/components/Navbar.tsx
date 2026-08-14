@@ -63,8 +63,9 @@ export default function Navbar() {
     const targetEl = document.getElementById(targetId);
 
     if (targetEl) {
-      if (window.lenis) {
-        window.lenis.scrollTo(targetEl, { offset: -90, duration: 1.2 });
+      const lenisInstance = (window as any).lenisInstance;
+      if (lenisInstance && typeof lenisInstance.scrollTo === "function") {
+        lenisInstance.scrollTo(targetEl, { offset: -90, duration: 1.2 });
       } else {
         const y = targetEl.getBoundingClientRect().top + window.scrollY - 90;
         window.scrollTo({ top: y, behavior: "smooth" });

@@ -24,7 +24,7 @@ const wordChildVariants = {
     opacity: 1,
     rotate: 0,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 110,
       damping: 14,
     },
