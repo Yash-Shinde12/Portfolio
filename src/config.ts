@@ -35,7 +35,7 @@ export const CONFIG = {
 
   // ── STATS (hero row) ──────────────────────────────────────
   stats: [
-    { value: "3+", label: "Projects" },
+    { value: "5+", label: "Projects" },
     { value: "12+", label: "Repos" },
     { value: "340+", label: "Commits" },
     { value: "10+", label: "Tech Tools" },
