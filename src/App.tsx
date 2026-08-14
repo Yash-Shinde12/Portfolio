@@ -9,10 +9,12 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import SpotlightCursor from "./components/SpotlightCursor";
 import ScrollProgress from "./components/ScrollProgress";
+import SmoothScroll from "./components/SmoothScroll";
 
 function App() {
   return (
     <>
+      <SmoothScroll />
       <ScrollProgress />
       <SpotlightCursor />
       <Navbar />
