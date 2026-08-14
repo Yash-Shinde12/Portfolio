@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { CONFIG } from "../config";
 
 const TYPING_ROLES = [
@@ -50,6 +50,16 @@ function CountUpStat({ value }: { value: string }) {
 }
 
 export default function Hero() {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0.15]);
+  const heroY = useTransform(scrollYProgress, [0, 0.75], [0, -45]);
+  const heroScale = useTransform(scrollYProgress, [0, 0.75], [1, 0.96]);
+
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -84,6 +94,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
+      ref={heroRef}
       style={{
         position: "relative",
         zIndex: 10,
@@ -92,7 +103,15 @@ export default function Hero() {
         alignItems: "center",
       }}
     >
-      <div className="section-wrap" style={{ paddingTop: "7rem" }}>
+      <motion.div
+        style={{
+          width: "100%",
+          opacity: heroOpacity,
+          y: heroY,
+          scale: heroScale,
+        }}
+      >
+        <div className="section-wrap" style={{ paddingTop: "7rem" }}>
         {/* Two-column layout */}
         <div
           className="hero-grid"
@@ -216,6 +235,7 @@ export default function Hero() {
           ))}
         </motion.div>
       </div>
+      </motion.div>
     </section>
   );
 }

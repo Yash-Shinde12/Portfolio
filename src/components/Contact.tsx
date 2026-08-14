@@ -5,6 +5,7 @@ import emailjs from "@emailjs/browser";
 import { CONFIG } from "../config";
 import { GithubIcon, LinkedinIcon } from "./GithubIcon";
 import StaggerText from "./StaggerText";
+import SectionReveal from "./SectionReveal";
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -61,7 +62,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" style={{ position: "relative", zIndex: 10 }}>
+    <SectionReveal id="contact">
       <div className="contact-glow" />
       <div className="section-wrap" style={{ position: "relative", zIndex: 1 }}>
         <motion.div
@@ -254,6 +255,6 @@ export default function Contact() {
           </motion.div>
         </div>
       </div>
-    </section>
+    </SectionReveal>
   );
 }

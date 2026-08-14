@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { CONFIG } from "../config";
 import StaggerText from "./StaggerText";
+import SectionReveal from "./SectionReveal";
 
 export default function Education() {
   const timelineRef = useRef<HTMLDivElement>(null);
@@ -30,7 +31,7 @@ export default function Education() {
   }, []);
 
   return (
-    <section id="education" style={{ position: "relative", zIndex: 10 }}>
+    <SectionReveal id="education">
       <div className="section-wrap">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -177,6 +178,6 @@ export default function Education() {
         </div>
       </div>
       <div className="divider" />
-    </section>
+    </SectionReveal>
   );
 }

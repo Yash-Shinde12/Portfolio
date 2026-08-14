@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { CONFIG } from "../config";
 import StaggerText from "./StaggerText";
+import SectionReveal from "./SectionReveal";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -29,12 +30,12 @@ const chipSpring = {
 
 export default function Skills() {
   return (
-    <section id="skills" style={{ position: "relative", zIndex: 10 }}>
+    <SectionReveal id="skills">
       <div className="section-wrap">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.4 }}
           style={{ marginBottom: "2.5rem" }}
         >
@@ -48,7 +49,7 @@ export default function Skills() {
               key={cat}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
+              viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.4 }}
             >
               <p
@@ -68,7 +69,7 @@ export default function Skills() {
                 variants={containerVariants}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
+                viewport={{ once: false, amount: 0.2 }}
                 style={{ display: "flex", flexWrap: "wrap", gap: "0.45rem" }}
               >
                 {(techs as readonly string[]).map((t) => (
@@ -82,6 +83,6 @@ export default function Skills() {
         </div>
       </div>
       <div className="divider" />
-    </section>
+    </SectionReveal>
   );
 }

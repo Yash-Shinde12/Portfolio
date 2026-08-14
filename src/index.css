@@ -717,6 +717,19 @@ footer {
   flex-wrap: wrap; gap: 0.5rem; background: var(--bg);
 }
 
+/* ── BENTO GRID ───────────────────────────────────────── */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .bento-card-wrapper {
+    grid-column: span 12 !important;
+  }
+}
+
 /* ── MOBILE ───────────────────────────────────────────── */
 @media (max-width: 768px) {
   .nav-desktop { display: none !important; }
