@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { CONFIG } from "../config";
 
 const TYPING_ROLES = [
@@ -8,6 +8,46 @@ const TYPING_ROLES = [
   "Cloud Computing Explorer",
   "Full-Stack Web Developer",
 ];
+
+// Smooth Animated Count-Up Stat Component
+function CountUpStat({ value }: { value: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.5 });
+  const [count, setCount] = useState(0);
+
+  const numericMatch = value.match(/\d+/);
+  const targetNumber = numericMatch ? parseInt(numericMatch[0], 10) : 0;
+  const suffix = value.replace(/\d+/, "");
+
+  useEffect(() => {
+    if (!isInView || targetNumber === 0) return;
+
+    let start = 0;
+    const duration = 1600; // 1.6s smooth duration
+    const steps = 60;
+    const increment = targetNumber / steps;
+    const stepTime = duration / steps;
+
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= targetNumber) {
+        setCount(targetNumber);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(start));
+      }
+    }, stepTime);
+
+    return () => clearInterval(timer);
+  }, [isInView, targetNumber]);
+
+  return (
+    <span ref={ref}>
+      {targetNumber > 0 ? count : value}
+      {targetNumber > 0 ? suffix : ""}
+    </span>
+  );
+}
 
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
@@ -151,7 +191,7 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Stats row */}
+        {/* Stats row with animated count-up */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -168,7 +208,9 @@ export default function Hero() {
         >
           {CONFIG.stats.map((s) => (
             <div key={s.label} className="stat-card">
-              <div className="stat-num">{s.value}</div>
+              <div className="stat-num">
+                <CountUpStat value={s.value} />
+              </div>
               <div className="stat-label">{s.label}</div>
             </div>
           ))}
