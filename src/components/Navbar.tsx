@@ -25,7 +25,7 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
 
-    // 2. High-performance IntersectionObserver for butter-smooth active section tracking
+    // 2. High-performance IntersectionObserver for scrollspy active section tracking
     const sections = ["hero", "about", "skills", "projects", "education", "contact"];
     const observerCallback: IntersectionObserverCallback = (entries) => {
       entries.forEach((entry) => {
@@ -37,7 +37,7 @@ export default function Navbar() {
 
     const observerOptions: IntersectionObserverInit = {
       root: null,
-      rootMargin: "-20% 0px -60% 0px", // Trigger when section is in top-middle of screen
+      rootMargin: "-20% 0px -60% 0px",
       threshold: 0,
     };
 
@@ -54,6 +54,24 @@ export default function Navbar() {
     };
   }, []);
 
+  // Smooth scroll handler for navbar links
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    setMobileOpen(false);
+
+    const targetId = href.replace("#", "");
+    const targetEl = document.getElementById(targetId);
+
+    if (targetEl) {
+      if (window.lenis) {
+        window.lenis.scrollTo(targetEl, { offset: -90, duration: 1.2 });
+      } else {
+        const y = targetEl.getBoundingClientRect().top + window.scrollY - 90;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+    }
+  };
+
   return (
     <>
       {/* Floating Dynamic Notch Navbar */}
@@ -65,7 +83,11 @@ export default function Navbar() {
           className={`notch-navbar ${scrolled ? "is-compact" : ""}`}
         >
           {/* Logo / Brand Notch Badge */}
-          <a href="#hero" className="notch-logo">
+          <a
+            href="#hero"
+            onClick={(e) => handleNavClick(e, "#hero")}
+            className="notch-logo"
+          >
             <span className="notch-logo-accent">YS</span>
             <span className="notch-logo-dot" />
             <span className="notch-logo-text">Yash Shinde</span>
@@ -80,6 +102,7 @@ export default function Navbar() {
                 <a
                   key={link.href}
                   href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
                   className={`notch-nav-link ${isActive ? "active" : ""}`}
                 >
                   {link.label}
@@ -140,7 +163,7 @@ export default function Navbar() {
                 <a
                   key={l.href}
                   href={l.href}
-                  onClick={() => setMobileOpen(false)}
+                  onClick={(e) => handleNavClick(e, l.href)}
                   className={`notch-mobile-link ${
                     activeSection === l.href.substring(1) ? "active" : ""
                   }`}
