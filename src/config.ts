@@ -43,15 +43,15 @@ export const CONFIG = {
 
   // ── ABOUT ─────────────────────────────────────────────────
   about:
-    "A dedicated Computer Science engineering student at KLE Technological University who enjoys solving complex problems, building DevOps automation pipelines, and exploring new technologies. Passionate about real-time server monitoring, CI/CD workflows, and IoT systems.",
+    "I'm a Computer Science student interested in software development, problem solving, AI/ML, and building things that actually work. I enjoy learning by creating projects and experimenting with different technologies.",
 
   // ── SKILLS ────────────────────────────────────────────────
   skills: {
-    "Programming Languages": ["C++", "C", "Python", "JavaScript"],
-    "Web Technologies": ["HTML", "CSS", "JavaScript", "React", "Flask"],
-    "Database Systems": ["Oracle SQL", "MySQL", "Pandas"],
-    "DevOps & Tools": ["Git", "GitHub", "Docker", "Jenkins", "AWS EC2", "VS Code"],
-    "Core Concepts": ["Data Structures", "OOPs", "DBMS", "Operating Systems", "Computer Networks"],
+    Languages: ["C", "C++", "Java", "Python", "JavaScript"],
+    Web: ["HTML", "CSS", "React", "Node.js", "Express.js", "Flask"],
+    Database: ["Oracle SQL", "MySQL", "MongoDB", "SQLite"],
+    "Data / AI": ["Pandas", "NumPy", "Scikit-learn", "Machine Learning"],
+    Tools: ["Git", "GitHub", "Docker", "Jenkins", "AWS", "Linux", "VS Code"],
   },
 
   // ── PROJECTS ──────────────────────────────────────────────
