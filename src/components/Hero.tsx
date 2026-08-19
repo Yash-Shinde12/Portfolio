@@ -98,9 +98,9 @@ export default function Hero() {
     if (targetEl) {
       const lenisInstance = (window as any).lenisInstance;
       if (lenisInstance && typeof lenisInstance.scrollTo === "function") {
-        lenisInstance.scrollTo(targetEl, { offset: -90, duration: 1.2 });
+        lenisInstance.scrollTo(targetEl, { offset: 15, duration: 1.1 });
       } else {
-        const y = targetEl.getBoundingClientRect().top + window.scrollY - 90;
+        const y = targetEl.getBoundingClientRect().top + window.scrollY + 15;
         window.scrollTo({ top: y, behavior: "smooth" });
       }
     }

@@ -32,7 +32,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-padding-top: 110px; }
+html { scroll-padding-top: 20px; }
 
 /* Lenis Smooth Scroll CSS */
 html.lenis, html.lenis body {
