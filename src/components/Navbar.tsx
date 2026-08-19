@@ -123,29 +123,16 @@ export default function Navbar() {
             })}
           </div>
 
-          {/* Action button */}
-          <div className="notch-actions">
-            <a
-              href={CONFIG.resume}
-              download
-              className="notch-btn-resume"
-              title="Download Resume"
-            >
-              <Download size={13} />
-              <span className="resume-text">Resume</span>
-            </a>
-
-            {/* Mobile Hamburger Toggle */}
-            <button
-              id="nav-toggle"
-              className="notch-toggle"
-              onClick={() => setMobileOpen((v) => !v)}
-              aria-label="Toggle menu"
-            >
-              <span className={`hamburger-bar ${mobileOpen ? "open-1" : ""}`} />
-              <span className={`hamburger-bar ${mobileOpen ? "open-2" : ""}`} />
-            </button>
-          </div>
+          {/* Mobile Hamburger Toggle */}
+          <button
+            id="nav-toggle"
+            className="notch-toggle"
+            onClick={() => setMobileOpen((v) => !v)}
+            aria-label="Toggle menu"
+          >
+            <span className={`hamburger-bar ${mobileOpen ? "open-1" : ""}`} />
+            <span className={`hamburger-bar ${mobileOpen ? "open-2" : ""}`} />
+          </button>
         </motion.nav>
       </header>
 

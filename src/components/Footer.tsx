@@ -1,11 +1,10 @@
-import { ArrowUp, Mail } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 import { CONFIG } from "../config";
-import { GithubIcon, LinkedinIcon } from "./GithubIcon";
 
 export default function Footer() {
   const scrollToTop = () => {
     if ((window as any).lenisInstance) {
-      (window as any).lenisInstance.scrollTo(0, { duration: 1.6 });
+      (window as any).lenisInstance.scrollTo(0, { duration: 1.4 });
     } else {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -13,56 +12,23 @@ export default function Footer() {
 
   return (
     <footer>
-      {/* Accent gradient line */}
-      <div className="footer-accent-line" />
-
+      <div className="divider" style={{ marginBottom: "1.75rem" }} />
       <div className="footer-content">
-        {/* Left: Name & tagline */}
-        <div className="footer-left">
-          <span className="footer-name">
-            © {new Date().getFullYear()} {CONFIG.name}
-          </span>
-          <span className="footer-tagline">
-            Designed & Built with care ✦
-          </span>
-        </div>
+        <span className="mono" style={{ fontSize: "0.72rem", color: "var(--text-2)" }}>
+          © {new Date().getFullYear()} <strong style={{ color: "var(--text-1)" }}>{CONFIG.name}</strong>
+        </span>
 
-        {/* Right: Social icons + Back to top */}
-        <div className="footer-right">
-          <a
-            href={CONFIG.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="footer-social-link"
-            aria-label="GitHub"
-          >
-            <GithubIcon size={16} />
-          </a>
-          <a
-            href={CONFIG.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="footer-social-link"
-            aria-label="LinkedIn"
-          >
-            <LinkedinIcon size={16} />
-          </a>
-          <a
-            href={`mailto:${CONFIG.email}`}
-            className="footer-social-link"
-            aria-label="Email"
-          >
-            <Mail size={16} />
-          </a>
+        <span className="mono" style={{ fontSize: "0.62rem", color: "var(--text-3)", letterSpacing: "0.08em" }}>
+          Designed & Built with care ✦
+        </span>
 
-          <button
-            onClick={scrollToTop}
-            className="footer-back-top"
-            aria-label="Back to top"
-          >
-            <ArrowUp size={12} /> Top
-          </button>
-        </div>
+        <button
+          onClick={scrollToTop}
+          className="footer-back-top"
+          aria-label="Back to top"
+        >
+          <ArrowUp size={12} /> Top
+        </button>
       </div>
     </footer>
   );

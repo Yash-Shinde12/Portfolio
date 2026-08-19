@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Terminal, Cpu, ArrowRight, Sparkles, Activity, Layers } from "lucide-react";
+import { ExternalLink, Terminal, Cpu, ArrowRight, Activity, Layers } from "lucide-react";
 import { CONFIG } from "../config";
 import { GithubIcon } from "./GithubIcon";
 import StaggerText from "./StaggerText";
@@ -76,25 +76,7 @@ export default function Projects() {
           transition={{ duration: 0.4 }}
           style={{ marginBottom: "2.75rem" }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <p className="eyebrow">Projects</p>
-            <span
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "4px",
-                fontSize: "0.62rem",
-                fontFamily: "var(--font-mono)",
-                color: "var(--accent)",
-                background: "var(--accent-dim)",
-                padding: "2px 8px",
-                borderRadius: "99px",
-                fontWeight: 600,
-              }}
-            >
-              <Sparkles size={10} /> Architecture Showcase
-            </span>
-          </div>
+          <p className="eyebrow">Projects</p>
           <StaggerText text="Things I've Built" accentWord="Built" />
         </motion.div>
 
