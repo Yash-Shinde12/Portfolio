@@ -7,14 +7,14 @@ export const CONFIG = {
   name: "Yash Shinde",
   title: "Computer Science Student & Developer",
   tagline:
-    "A dedicated engineering student building real-time dashboards, DevOps automation pipelines, and IoT systems.",
+    "A dedicated engineering student who enjoys solving problems and learning new technologies.",
   portrait: "/imag3.png",
 
   location: "Belagavi, Karnataka, India",
 
   // ── LINKS ─────────────────────────────────────────────────
   github: "https://github.com/Yash-Shinde12",
-  linkedin: "https://linkedin.com/in/yash-shinde",
+  linkedin: "https://www.linkedin.com/in/yashhh12",
   email: "yashshinde7441@gmail.com",
   resume: "/resume.pdf", // ← Drop resume.pdf into /public/
 
