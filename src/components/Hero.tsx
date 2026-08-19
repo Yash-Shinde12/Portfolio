@@ -140,7 +140,7 @@ export default function Hero() {
                 marginBottom: "0.75rem",
               }}
             >
-              Hi, I'm <span style={{ color: "var(--accent)" }}>Yash</span>
+              Hi, I'm <span className="shimmer-name">Yash</span>
             </motion.h1>
 
             {/* Auto-typing text */}
