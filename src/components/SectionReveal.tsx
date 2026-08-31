@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface SectionRevealProps {
   children: React.ReactNode;
@@ -14,27 +13,17 @@ export default function SectionReveal({
   className,
   style,
 }: SectionRevealProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-
-  // Graceful scroll entrance and exit fade/slide
-  const opacity = useTransform(scrollYProgress, [0, 0.12, 0.88, 1], [0.2, 1, 1, 0.15]);
-  const y = useTransform(scrollYProgress, [0, 0.12, 0.88, 1], [35, 0, 0, -35]);
-  const scale = useTransform(scrollYProgress, [0, 0.12, 0.88, 1], [0.97, 1, 1, 0.97]);
-
   return (
-    <section
+    <motion.section
       id={id}
-      ref={ref}
       className={className}
+      initial={{ opacity: 0, y: 22 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.08 }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       style={{ position: "relative", zIndex: 10, ...style }}
     >
-      <motion.div style={{ opacity, y, scale }}>
-        {children}
-      </motion.div>
-    </section>
+      {children}
+    </motion.section>
   );
 }

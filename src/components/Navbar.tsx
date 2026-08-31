@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Download } from "lucide-react";
 import { CONFIG } from "../config";
+import ThemeToggle from "./ThemeToggle";
 
 const NAV_LINKS = [
   { label: "About",     href: "#about" },
@@ -123,16 +124,19 @@ export default function Navbar() {
             })}
           </div>
 
-          {/* Mobile Hamburger Toggle */}
-          <button
-            id="nav-toggle"
-            className="notch-toggle"
-            onClick={() => setMobileOpen((v) => !v)}
-            aria-label="Toggle menu"
-          >
-            <span className={`hamburger-bar ${mobileOpen ? "open-1" : ""}`} />
-            <span className={`hamburger-bar ${mobileOpen ? "open-2" : ""}`} />
-          </button>
+          {/* Theme Toggle + Mobile Hamburger */}
+          <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+            <ThemeToggle />
+            <button
+              id="nav-toggle"
+              className="notch-toggle"
+              onClick={() => setMobileOpen((v) => !v)}
+              aria-label="Toggle menu"
+            >
+              <span className={`hamburger-bar ${mobileOpen ? "open-1" : ""}`} />
+              <span className={`hamburger-bar ${mobileOpen ? "open-2" : ""}`} />
+            </button>
+          </div>
         </motion.nav>
       </header>
 

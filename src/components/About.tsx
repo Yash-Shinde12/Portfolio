@@ -11,7 +11,7 @@ export default function About() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.4 }}
         >
           <p className="eyebrow">About</p>
@@ -21,7 +21,7 @@ export default function About() {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ type: "spring", stiffness: 90, damping: 16, delay: 0.15 }}
           style={{
             fontSize: "0.98rem",

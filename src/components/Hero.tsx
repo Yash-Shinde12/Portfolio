@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { ArrowRight, Download } from "lucide-react";
 import { CONFIG } from "../config";
 
@@ -51,16 +51,6 @@ function CountUpStat({ value }: { value: string }) {
 }
 
 export default function Hero() {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0.15]);
-  const heroY = useTransform(scrollYProgress, [0, 0.75], [0, -45]);
-  const heroScale = useTransform(scrollYProgress, [0, 0.75], [1, 0.96]);
-
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -109,7 +99,6 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      ref={heroRef}
       style={{
         position: "relative",
         zIndex: 10,
@@ -118,14 +107,7 @@ export default function Hero() {
         alignItems: "center",
       }}
     >
-      <motion.div
-        style={{
-          width: "100%",
-          opacity: heroOpacity,
-          y: heroY,
-          scale: heroScale,
-        }}
-      >
+      <div style={{ width: "100%" }}>
         <div className="section-wrap" style={{ paddingTop: "7rem" }}>
           {/* Two-column layout */}
           <div
@@ -244,8 +226,8 @@ export default function Hero() {
 
               {/* Transparent Cutout Image */}
               <motion.img
-                animate={{ y: [0, -10, 0] }}
-                transition={{ repeat: Infinity, duration: 5.5, ease: "easeInOut" }}
+                animate={{ y: [0, -5, 0] }}
+                transition={{ repeat: Infinity, duration: 7, ease: "easeInOut" }}
                 src={CONFIG.portrait}
                 alt={`${CONFIG.name} portrait`}
                 className="portrait-cutout-img"
@@ -279,7 +261,7 @@ export default function Hero() {
             ))}
           </motion.div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

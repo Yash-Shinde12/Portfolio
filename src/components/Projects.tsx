@@ -123,8 +123,8 @@ export default function Projects() {
                       ? "1px solid rgba(217, 119, 6, 0.25)"
                       : "1px solid var(--border)",
                     boxShadow: isFeatured
-                      ? "0 16px 36px -8px rgba(28, 25, 23, 0.08), 0 0 20px rgba(217, 119, 6, 0.04)"
-                      : "0 8px 24px -4px rgba(28, 25, 23, 0.04)",
+                      ? "0 16px 36px -8px var(--ink-shadow), 0 0 20px rgba(217, 119, 6, 0.04)"
+                      : "0 8px 24px -4px var(--ink-shadow)",
                   }}
                 >
                   {/* Top Bar Header */}
@@ -198,8 +198,8 @@ export default function Projects() {
                   {/* Visual Architecture Pipeline Flow Box */}
                   <div
                     style={{
-                      background: "rgba(28, 25, 23, 0.03)",
-                      border: "1px solid rgba(28, 25, 23, 0.08)",
+                      background: "var(--ink-005)",
+                      border: "1px solid var(--ink-008)",
                       borderRadius: 8,
                       padding: "0.9rem 1rem",
                       marginBottom: "1.4rem",
@@ -252,8 +252,8 @@ export default function Projects() {
                               fontSize: "0.66rem",
                               fontWeight: 600,
                               color: "var(--text-1)",
-                              background: "#ffffff",
-                              border: "1px solid rgba(28, 25, 23, 0.1)",
+                              background: "var(--bg-card)",
+                              border: "1px solid var(--ink-01)",
                               padding: "3px 8px",
                               borderRadius: 5,
                               boxShadow: "0 1px 3px rgba(0,0,0,0.03)",

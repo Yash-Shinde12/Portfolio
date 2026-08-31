@@ -35,7 +35,7 @@ export default function Skills() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.4 }}
           style={{ marginBottom: "2.5rem" }}
         >
@@ -49,7 +49,7 @@ export default function Skills() {
               key={cat}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.4 }}
             >
               <p
@@ -69,7 +69,7 @@ export default function Skills() {
                 variants={containerVariants}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: false, amount: 0.2 }}
+                viewport={{ once: true, amount: 0.2 }}
                 style={{ display: "flex", flexWrap: "wrap", gap: "0.45rem" }}
               >
                 {(techs as readonly string[]).map((t) => (

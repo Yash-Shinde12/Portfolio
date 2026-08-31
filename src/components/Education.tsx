@@ -66,7 +66,7 @@ export default function Education() {
               top: 0,
               bottom: 0,
               width: 2,
-              background: "rgba(28, 25, 23, 0.08)",
+              background: "var(--ink-008)",
               borderRadius: 99,
             }}
           />
@@ -130,7 +130,7 @@ export default function Education() {
                     position: "relative",
                     overflow: "hidden",
                     border: "1px solid var(--border)",
-                    boxShadow: "0 8px 24px -4px rgba(28, 25, 23, 0.04)",
+                    boxShadow: "0 8px 24px -4px var(--ink-shadow)",
                   }}
                 >
                   {/* Header Row */}
@@ -216,8 +216,8 @@ export default function Education() {
                   {/* Description / Coursework details */}
                   <div
                     style={{
-                      background: "rgba(28, 25, 23, 0.02)",
-                      border: "1px solid rgba(28, 25, 23, 0.06)",
+                      background: "var(--ink-005)",
+                      border: "1px solid var(--border)",
                       borderRadius: 8,
                       padding: "0.85rem 1rem",
                       display: "flex",
